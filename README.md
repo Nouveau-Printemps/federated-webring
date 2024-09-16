@@ -23,3 +23,4 @@ It empowers the federation and its management.
 - GORM
 - pelletier/toml/v2
 - Google/UUID
+- Redis/go-redis/v9

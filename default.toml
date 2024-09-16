@@ -9,3 +9,8 @@ password = "change me!"
 dbname = "webring"
 port = 5432
 timezone = "Europe/Paris"
+
+[redis_credentials]
+host = "localhost"
+port = 6379
+password = ""
