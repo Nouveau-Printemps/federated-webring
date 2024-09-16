@@ -18,6 +18,8 @@ func main() {
 	r.HandleFunc("/", webserver.Home)
 	r.HandleFunc("/api/hello", api.HelloHandler)
 	r.HandleFunc("/api/sites", api.SitesHandler)
+	r.HandleFunc("/api/site", api.SiteHandler)
+	r.HandleFunc("/api/site-random", api.RandomSiteHandler)
 
 	srv := &http.Server{
 		Handler:      r,

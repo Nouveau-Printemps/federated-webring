@@ -67,3 +67,16 @@ The data sent is always this type:
 `url` is the URL of the website. It must be a valid HTTP URL (e.g., `https://example.org/`)
 `description` is the description of the website.
 `type` is type of the website (e.g., blog, portfolio...). Each type must be separated by one space and must be in lowercase.
+
+#### Random website
+
+You can get a random website with the endpoint `/api/site-random`.
+
+#### Information about a website
+
+You can get every information about a website with its name or its URL with the endpoint `/api/site`.
+You have to set the parameter `url` with the URL or `name` with its name.
+e.g., `/api/site?url=https://example.org/`
+
+If the website is not found, the server send a 404.
+If the request is mal formed (`url` or `name` is not set), the server send a 400.
