@@ -1,0 +1,7 @@
+[database_credentials]
+host = "localhost"
+user = "webring"
+password = "change me!"
+dbname = "webring"
+port = 5432
+timezone = "Europe/Paris"
