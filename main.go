@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"errors"
 	"github.com/gorilla/mux"
+	"github.com/nouveau-printemps/federated-webring/webserver"
 	"log/slog"
 	"net/http"
 	"os"
@@ -12,17 +14,18 @@ import (
 
 func main() {
 	r := mux.NewRouter()
+	r.HandleFunc("/", webserver.Home)
 
 	srv := &http.Server{
 		Handler:      r,
-		Addr:         ":80",
+		Addr:         ":8000",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
 	slog.Info("Starting...")
 	go func() {
-		if err := srv.ListenAndServe(); err != nil {
+		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			slog.Error(err.Error())
 		}
 	}()
