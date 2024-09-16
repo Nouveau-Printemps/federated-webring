@@ -28,8 +28,10 @@ var (
 func init() {
 	validTypeMap["federation/request"] = "valid/federation-request"
 	validTypeMap["federation/response"] = "valid/federation-response"
+	validTypeMap["federation/break"] = "valid/federation-break"
 	validTypeFuncMap["valid/federation-request"] = data.FederationRequestType
 	validTypeFuncMap["valid/federation-response"] = data.FederationResponseType
+	validTypeFuncMap["valid/federation-break"] = data.FederationBreakType
 }
 
 func (d *Data) Verify() (bool, error) {

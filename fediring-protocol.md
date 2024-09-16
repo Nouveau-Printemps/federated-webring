@@ -186,3 +186,16 @@ The request is not valid if the server does not have a pending request or if the
 
 If the request is not valid, the server has to reject it with a status 403.
 If the request is valid, the server sends a status 201.
+
+### Break the federation
+
+To leave the federation with a server, use the endpoint `/api/federation-inbox` and send with the `POST` method the data 
+*FederationData*. 
+The type must be `federation/break`.
+The message is the reason of the federation's end.
+
+The server which receives the request has to validate it (using the *validity check*).
+The *validity type* is `valid/federation-break`.
+
+If the request is not valid, the server has to reject it with a status 403.
+If the request is valid, the server sends a status 202.

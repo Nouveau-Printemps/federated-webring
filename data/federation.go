@@ -9,6 +9,7 @@ import (
 const (
 	FederationRequestType  = "federation-request"
 	FederationResponseType = "federation-response"
+	FederationBreakType    = "federation-break"
 )
 
 var ErrNotFound = errors.New("federation sent not found")
