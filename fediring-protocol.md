@@ -112,6 +112,9 @@ The type of data returned is *SiteData*.
 To federate with a server, you have to send a federation request. 
 Then, the server may accept it (or not) and send you a federation response.
 
+When a server is federating with another server, they share their server list.
+Each server must update others servers' list each four hours. 
+
 ### Checks validity of a request: *validity check*
 
 To validate a request, the server has to send a new request to the endpoint `/api/federation-indox` of the origin server
