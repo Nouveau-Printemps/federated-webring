@@ -11,6 +11,13 @@ type Response struct {
 	Data    any    `json:"data"`
 }
 
+func NewResponse(status uint, message string) *Response {
+	return &Response{
+		Status:  status,
+		Message: message,
+	}
+}
+
 func (r *Response) Write(w http.ResponseWriter) {
 	r.write(w, false)
 }

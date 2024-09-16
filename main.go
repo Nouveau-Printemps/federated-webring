@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/gorilla/mux"
 	"github.com/nouveau-printemps/federated-webring/webserver"
+	"github.com/nouveau-printemps/federated-webring/webserver/api"
 	"log/slog"
 	"net/http"
 	"os"
@@ -15,6 +16,7 @@ import (
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", webserver.Home)
+	r.HandleFunc("/api/hello", api.HelloHandler)
 
 	srv := &http.Server{
 		Handler:      r,
