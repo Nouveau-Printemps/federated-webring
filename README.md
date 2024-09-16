@@ -20,3 +20,4 @@ It empowers the federation and its management.
 
 - Go 1.23
 - Gorilla/mux
+- GORM
