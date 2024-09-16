@@ -19,3 +19,4 @@ It empowers the federation and its management.
 ## Technologies
 
 - Go 1.23
+- Gorilla/mux
