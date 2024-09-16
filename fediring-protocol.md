@@ -138,7 +138,7 @@ This type is called *validity type*.
 The message must contain the UUID of the first request.
 Then, the server which sent the request has to validate it with an HTTP status 200 or invalidate it with an HTTP status 403.
 
-e.g., Server A send the request to Server B
+e.g., Server A wants to federate with Server B. So, Server A send a request to Server B
 ```json
 {
   "type": "federation/request",
@@ -147,7 +147,7 @@ e.g., Server A send the request to Server B
   "uuid": "19d2b596-48d4-42c5-8d3e-64c270e3e641"
 }
 ```
-Server B must validate this request and then send a request to Server A.
+Server B must ensure the validity of this one. So, Server B send a validation to Server A.
 ```json
 {
   "type": "valid/federation-request",
@@ -171,17 +171,18 @@ The server which receives the request has to validate it (using the *validity ch
 The *validity type* is `valid/federation-request`.
 
 If the request is not valid, the server has to reject it with a status 403.
-If the request is valid, the server send a status 200.
+If the request is valid, the server send a status 201.
 
 ### Response of a federation request
 
-When the server accepts or not the request, it has to send a request to the origin server.
+When the server accepts or not the request, it has to send a request to the origin server with the method `POST`.
 This request has the data "FederationData".
 The type must be `federation/response`.
 The message is the justification of the response.
 
 The server which receives the request has to validate it (using the *validity check*).
 The *validity type* is `valid/federation-response`.
+The request is not valid if the server does not have a pending request or if the *validity check* failed.
 
 If the request is not valid, the server has to reject it with a status 403.
-If the request is valid, the server send a status 200.
+If the request is valid, the server send a status 201.

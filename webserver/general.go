@@ -2,6 +2,7 @@ package webserver
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net/http"
 )
 
@@ -13,6 +14,7 @@ type Response struct {
 
 type RingData struct {
 	Name            string
+	Host            string
 	ProtocolVersion string
 	ApplicationName string
 	Description     string
@@ -39,15 +41,18 @@ func (r *Response) write(w http.ResponseWriter, force bool) {
 	if err != nil {
 		if force {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			slog.Error(err.Error())
 			return
 		}
 		generateInternalError(err).write(w, true)
+		slog.Error(err.Error())
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
 	_, err = w.Write(b)
 	if err != nil {
 		generateInternalError(err).write(w, true)
+		slog.Error(err.Error())
 	}
 }
 

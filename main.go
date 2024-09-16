@@ -8,6 +8,7 @@ import (
 	"github.com/Nouveau-Printemps/federated-webring/data"
 	"github.com/Nouveau-Printemps/federated-webring/webserver"
 	"github.com/Nouveau-Printemps/federated-webring/webserver/api"
+	"github.com/Nouveau-Printemps/federated-webring/webserver/federation"
 	"github.com/gorilla/mux"
 	"github.com/pelletier/go-toml/v2"
 	"log/slog"
@@ -26,6 +27,7 @@ func main() {
 		if !errors.Is(err, os.ErrNotExist) {
 			panic(err)
 		}
+		slog.Warn("Creating a new config file")
 		err = os.WriteFile("config.toml", defaultConfig, 0600)
 		if err != nil {
 			panic(err)
@@ -46,6 +48,7 @@ func main() {
 		ProtocolVersion: "1",
 		ApplicationName: "Federated WebRing",
 		Description:     cfg.Description,
+		Host:            cfg.Host,
 	}
 
 	r := mux.NewRouter()
@@ -54,6 +57,7 @@ func main() {
 	r.HandleFunc("/api/websites", api.SitesHandler)
 	r.HandleFunc("/api/website", api.SiteHandler)
 	r.HandleFunc("/api/website-random", api.RandomSiteHandler)
+	r.HandleFunc("/api/federation-inbox", federation.InboxHandler)
 
 	srv := &http.Server{
 		Handler:      r,
