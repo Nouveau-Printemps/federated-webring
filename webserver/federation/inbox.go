@@ -17,15 +17,15 @@ func init() {
 func InboxHandler(w http.ResponseWriter, r *http.Request) {
 	b, err := io.ReadAll(r.Body)
 	if err != nil {
-		webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
 		slog.Error(err.Error())
+		webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
 		return
 	}
 	var reqData Data
 	err = json.Unmarshal(b, &reqData)
 	if err != nil {
-		webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
 		slog.Error(err.Error())
+		webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
 		return
 	}
 	if strings.HasPrefix(reqData.Type, "valid/") {
@@ -34,18 +34,18 @@ func InboxHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	valid, err := reqData.Verify()
 	if err != nil {
-		webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
 		slog.Error(err.Error())
+		webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
 		return
 	}
-	if valid {
-		w.WriteHeader(http.StatusCreated)
-	} else {
-		w.WriteHeader(http.StatusForbidden)
+	if !valid {
+		webserver.NewResponse(http.StatusForbidden, "Not valid").Write(w)
+		return
 	}
 	f, ok := typeMap[reqData.Type]
 	if !ok {
 		webserver.NewResponse(http.StatusBadRequest, "Type not found").Write(w)
+		return
 	}
 	f(w, &reqData)
 }

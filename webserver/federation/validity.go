@@ -3,6 +3,7 @@ package federation
 import (
 	"encoding/json"
 	"errors"
+	"github.com/Nouveau-Printemps/federated-webring/data"
 	"github.com/Nouveau-Printemps/federated-webring/webserver"
 	"github.com/google/uuid"
 	"log/slog"
@@ -19,7 +20,7 @@ type Data struct {
 
 var (
 	validTypeMap         map[string]string
-	validTypeFuncMap     map[string]func(http.ResponseWriter, *Data)
+	validTypeFuncMap     map[string]string
 	ErrValidTypeNotFound = errors.New("valid type not found")
 	ErrUnknownResponse   = errors.New("unknown status code in response")
 )
@@ -27,8 +28,8 @@ var (
 func init() {
 	validTypeMap["federation/request"] = "valid/federation-request"
 	validTypeMap["federation/response"] = "valid/federation-response"
-	validTypeFuncMap["valid/federation-request"] = validFederationRequest
-	validTypeFuncMap["valid/federation-response"] = validFederationResponse
+	validTypeFuncMap["valid/federation-request"] = data.FederationRequestType
+	validTypeFuncMap["valid/federation-response"] = data.FederationResponseType
 }
 
 func (d *Data) Verify() (bool, error) {
@@ -36,13 +37,13 @@ func (d *Data) Verify() (bool, error) {
 	if !ok {
 		return false, ErrValidTypeNotFound
 	}
-	data := Data{
+	da := Data{
 		Type:    typ,
 		Message: d.UUID,
 		Origin:  webserver.Data.Host,
 		UUID:    uuid.New().String(),
 	}
-	mb, err := json.Marshal(data)
+	mb, err := json.Marshal(da)
 	if err != nil {
 		return false, err
 	}
@@ -61,7 +62,7 @@ func (d *Data) Verify() (bool, error) {
 		return true, nil
 	case http.StatusForbidden:
 		{
-			slog.Warn("Request is not valid", "uuid", d.UUID)
+			slog.Warn("Request is not valid", "uuid", d.UUID, "origin", d.Origin)
 			return false, nil
 		}
 	}
@@ -69,18 +70,26 @@ func (d *Data) Verify() (bool, error) {
 }
 
 func (d *Data) Valid(w http.ResponseWriter) {
-	f, ok := validTypeFuncMap[d.Type]
+	t, ok := validTypeFuncMap[d.Type]
 	if !ok {
 		webserver.NewResponse(http.StatusBadRequest, "Type not found").Write(w)
 		return
 	}
-	f(w, d)
-}
-
-func validFederationRequest(w http.ResponseWriter, data *Data) {
-	//
-}
-
-func validFederationResponse(w http.ResponseWriter, data *Data) {
-	//
+	val, err := data.GetFederationSent(t, d.Origin)
+	if err != nil {
+		if !errors.Is(err, data.ErrNotFound) {
+			webserver.NewResponse(http.StatusInternalServerError, "An error occurred").Write(w)
+			slog.Error(err.Error())
+			return
+		}
+		slog.Warn("Not valid request", "origin", d.Origin, "uuid", d.UUID)
+		webserver.NewResponse(http.StatusForbidden, "Not valid").Write(w)
+		return
+	}
+	if val == d.Message {
+		webserver.NewResponse(http.StatusOK, "Valid").Write(w)
+		return
+	}
+	slog.Warn("Not valid request", "origin", d.Origin, "uuid", d.UUID)
+	webserver.NewResponse(http.StatusForbidden, "Not valid").Write(w)
 }

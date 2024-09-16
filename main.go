@@ -41,7 +41,7 @@ func main() {
 		panic(err)
 	}
 
-	data.Init(cfg.DatabaseCredentials)
+	data.Init(cfg.DatabaseCredentials, cfg.RedisCredentials)
 
 	webserver.Data = &webserver.RingData{
 		Name:            cfg.Name,
