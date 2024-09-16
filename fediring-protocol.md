@@ -163,7 +163,7 @@ If not, it sends an HTTP status 403.
 
 ### Request federation
 
-To federate with a server, use the endpoint `/api/federation-inbox` and send with the `POST` method the data "FederationData".
+To federate with a server, use the endpoint `/api/federation-inbox` and send with the `POST` method the data *FederationData*.
 The type must be `federation/request`.
 The message is the reason of the request.
 
@@ -176,7 +176,7 @@ If the request is valid, the server sends a status 201.
 ### Response of a federation request
 
 When the server accepts or not the request, it has to send a request to the origin server with the method `POST`.
-This request has the data "FederationData".
+This request has the data *FederationData*.
 The type must be `federation/response`.
 The message is the justification of the response.
 

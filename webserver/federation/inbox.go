@@ -3,6 +3,7 @@ package federation
 import (
 	"encoding/json"
 	"github.com/Nouveau-Printemps/federated-webring/webserver"
+	"github.com/google/uuid"
 	"io"
 	"log/slog"
 	"net/http"
@@ -46,6 +47,9 @@ func InboxHandler(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		webserver.NewResponse(http.StatusBadRequest, "Type not found").Write(w)
 		return
+	}
+	if uuid.Validate(reqData.UUID) != nil {
+		webserver.NewResponse(http.StatusBadRequest, "Invalid UUID").Write(w)
 	}
 	f(w, &reqData)
 }
