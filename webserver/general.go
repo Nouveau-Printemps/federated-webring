@@ -11,6 +11,15 @@ type Response struct {
 	Data    any    `json:"data"`
 }
 
+type RingData struct {
+	Name            string
+	ProtocolVersion string
+	ApplicationName string
+	Description     string
+}
+
+var Data *RingData
+
 func NewResponse(status uint, message string) *Response {
 	return &Response{
 		Status:  status,

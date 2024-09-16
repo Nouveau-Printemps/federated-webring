@@ -7,6 +7,8 @@ import (
 )
 
 type Config struct {
+	Name                string
+	Description         string
 	DatabaseCredentials *DatabaseCredentials `toml:"database_credentials"`
 }
 

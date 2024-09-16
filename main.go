@@ -41,6 +41,13 @@ func main() {
 
 	data.Init(cfg.DatabaseCredentials)
 
+	webserver.Data = &webserver.RingData{
+		Name:            cfg.Name,
+		ProtocolVersion: "1",
+		ApplicationName: "Federated WebRing",
+		Description:     cfg.Description,
+	}
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", webserver.Home)
 	r.HandleFunc("/api/hello", api.HelloHandler)

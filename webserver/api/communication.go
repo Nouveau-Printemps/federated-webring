@@ -42,10 +42,10 @@ func init() {
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	resp := webserver.NewResponse(http.StatusOK, "Hello!")
 	resp.Data = &HelloData{
-		Name:            "A name",
-		Version:         "1",
-		ApplicationName: "Federated WebRing",
-		Description:     "A description",
+		Name:            webserver.Data.Name,
+		Version:         webserver.Data.ProtocolVersion,
+		ApplicationName: webserver.Data.ApplicationName,
+		Description:     webserver.Data.Description,
 	}
 	resp.Write(w)
 }

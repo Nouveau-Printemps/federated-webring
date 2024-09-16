@@ -1,3 +1,6 @@
+name = "Federated WebRing"
+description = "Default config of Federated WebRing!"
+
 [database_credentials]
 host = "localhost"
 user = "webring"
