@@ -88,7 +88,7 @@ The type of data returned is *HelloData*.
 
 To query sites in the webring, you have to call the endpoint `/api/websites`.
 
-The type of data returned is a list of "WebsiteData".
+The type of data returned is a list of *WebsiteData*.
 
 ### Blacklisted websites
 
@@ -138,7 +138,7 @@ This type is called *validity type*.
 The message must contain the UUID of the first request.
 Then, the server which sent the request has to validate it with an HTTP status 200 or invalidate it with an HTTP status 403.
 
-e.g., Server A wants to federate with Server B. So, Server A send a request to Server B
+e.g., Server A wants to federate with Server B. So, Server A sends a request to Server B
 ```json
 {
   "type": "federation/request",
@@ -147,7 +147,7 @@ e.g., Server A wants to federate with Server B. So, Server A send a request to S
   "uuid": "19d2b596-48d4-42c5-8d3e-64c270e3e641"
 }
 ```
-Server B must ensure the validity of this one. So, Server B send a validation to Server A.
+Server B must ensure the validity of this one. So, Server B sends a validation to Server A.
 ```json
 {
   "type": "valid/federation-request",
@@ -171,7 +171,7 @@ The server which receives the request has to validate it (using the *validity ch
 The *validity type* is `valid/federation-request`.
 
 If the request is not valid, the server has to reject it with a status 403.
-If the request is valid, the server send a status 201.
+If the request is valid, the server sends a status 201.
 
 ### Response of a federation request
 
@@ -185,4 +185,4 @@ The *validity type* is `valid/federation-response`.
 The request is not valid if the server does not have a pending request or if the *validity check* failed.
 
 If the request is not valid, the server has to reject it with a status 403.
-If the request is valid, the server send a status 201.
+If the request is valid, the server sends a status 201.
