@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"errors"
+	"github.com/Nouveau-Printemps/federated-webring/webserver"
+	"github.com/Nouveau-Printemps/federated-webring/webserver/api"
 	"github.com/gorilla/mux"
-	"github.com/nouveau-printemps/federated-webring/webserver"
-	"github.com/nouveau-printemps/federated-webring/webserver/api"
 	"log/slog"
 	"net/http"
 	"os"

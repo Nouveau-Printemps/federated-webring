@@ -1,4 +1,4 @@
-module github.com/nouveau-printemps/federated-webring
+module github.com/Nouveau-Printemps/federated-webring
 
 go 1.23
 

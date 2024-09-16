@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/nouveau-printemps/federated-webring/webserver"
+	"github.com/Nouveau-Printemps/federated-webring/webserver"
 	"net/http"
 )
 
