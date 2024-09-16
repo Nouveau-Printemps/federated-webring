@@ -46,7 +46,7 @@ A response is always this type:
 
 #### Website information
 
-*SiteData* contains all important information about a website.
+*WebsiteData* contains all important information about a website.
 ```json
 {
   "name": "",
@@ -84,28 +84,28 @@ To get all important information about the server, you have to query the endpoin
 
 The type of data returned is *HelloData*.
 
-### Sites
+### Websites
 
-To query sites in the webring, you have to call the endpoint `/api/sites`.
+To query sites in the webring, you have to call the endpoint `/api/websites`.
 
-The type of data returned is a list of "SiteData".
+The type of data returned is a list of "WebsiteData".
 
 #### Random website
 
-You can get a random website with the endpoint `/api/site-random`.
+You can get a random website with the endpoint `/api/website-random`.
 
-The type of data returned is *SiteData*.
+The type of data returned is *WebsiteData*.
 
 #### Information about a website
 
-You can get every information about a website with its name or its URL with the endpoint `/api/site`.
+You can get every information about a website with its name or its URL with the endpoint `/api/website`.
 You have to set the parameter `url` with the URL or `name` with its name.
-e.g., `/api/site?url=https://example.org/`
+e.g., `/api/website?url=https://example.org/`
 
 If the website is not found, the server send a 404.
 If the request is mal formed (`url` or `name` is not set), the server send a 400.
 
-The type of data returned is *SiteData*.
+The type of data returned is *WebsiteData*.
 
 ## Federation
 

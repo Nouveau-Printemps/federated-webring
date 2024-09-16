@@ -17,9 +17,9 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", webserver.Home)
 	r.HandleFunc("/api/hello", api.HelloHandler)
-	r.HandleFunc("/api/sites", api.SitesHandler)
-	r.HandleFunc("/api/site", api.SiteHandler)
-	r.HandleFunc("/api/site-random", api.RandomSiteHandler)
+	r.HandleFunc("/api/websites", api.SitesHandler)
+	r.HandleFunc("/api/website", api.SiteHandler)
+	r.HandleFunc("/api/website-random", api.RandomSiteHandler)
 
 	srv := &http.Server{
 		Handler:      r,
