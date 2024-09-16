@@ -170,7 +170,8 @@ The message is the reason of the request.
 The server which receives the request has to validate it (using the *validity check*).
 The *validity type* is `valid/federation-request`.
 
-If the request is not valid, the server has to ignore it.
+If the request is not valid, the server has to reject it with a status 403.
+If the request is valid, the server send a status 200.
 
 ### Response of a federation request
 
@@ -182,4 +183,5 @@ The message is the justification of the response.
 The server which receives the request has to validate it (using the *validity check*).
 The *validity type* is `valid/federation-response`.
 
-If the request is not valid, the server has to ignore it.
+If the request is not valid, the server has to reject it with a status 403.
+If the request is valid, the server send a status 200.
