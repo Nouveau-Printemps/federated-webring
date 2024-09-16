@@ -34,19 +34,36 @@ The data returned is always this type:
   "name": "",
   "version": "",
   "application_name": "",
-  "description": "",
-  "update_endpoint": ""
+  "description": ""
 }
 ```
 `name` is the name of the webring.
 `version` is the version of the protocol used.
 `application_name` is the name of the application using Fediring.
 `description` is the description of the webring.
-`update_endpoint` is the endpoint to call when a federated server updates its information.
 
 ### Update
 
-When a server updates its information, it has to send these modifications to others on the update endpoint.
-This endpoint is specified by the `/api/hello` endpoint.
+When a server updates its information, it has to send these modifications to others on the endpoint `/api/update`.
 
 The data sent has the same type as the data sent by the `/api/hello` endpoint.
+
+### Sites
+
+To query sites in the webring, you have to call the endpoint `/api/sites`.
+
+The data sent is always this type:
+```json
+[
+  {
+    "name": "",
+    "url": "",
+    "description": "",
+    "type": ""
+  }
+]
+```
+`name` is the name of the website.
+`url` is the URL of the website. It must be a valid HTTP URL (e.g., `https://example.org/`)
+`description` is the description of the website.
+`type` is type of the website (e.g., blog, portfolio...). Each type must be separated by one space and must be in lowercase.

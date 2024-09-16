@@ -17,6 +17,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", webserver.Home)
 	r.HandleFunc("/api/hello", api.HelloHandler)
+	r.HandleFunc("/api/sites", api.SitesHandler)
 
 	srv := &http.Server{
 		Handler:      r,
