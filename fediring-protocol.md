@@ -90,6 +90,15 @@ To query sites in the webring, you have to call the endpoint `/api/websites`.
 
 The type of data returned is a list of "WebsiteData".
 
+### Blacklisted websites
+
+To query blacklisted websites in the webring, you have to call the endpoint `/api/websites-blacklisted`.
+
+These websites will never be a part of the webring.
+
+The type of data returned is *WebsiteData*.
+`description` is the blacklist's reason.
+
 #### Random website
 
 You can get a random website with the endpoint `/api/website-random`.
@@ -100,12 +109,15 @@ The type of data returned is *WebsiteData*.
 
 You can get every information about a website with its name or its URL with the endpoint `/api/website`.
 You have to set the parameter `url` with the URL or `name` with its name.
-e.g., `/api/website?url=https://example.org/`
+e.g., `/api/website?url=https://example.org/`.
+
+It also works with blacklisted websites.
 
 If the website is not found, the server send a 404.
 If the request is mal formed (`url` or `name` is not set), the server send a 400.
 
 The type of data returned is *WebsiteData*.
+`description` is the reason of the blacklist for blacklisted websites. 
 
 ## Federation
 
@@ -114,6 +126,8 @@ Then, the server may accept it (or not) and send you a federation response.
 
 When a server is federating with another server, they share their server list.
 Each server must update others servers' list each four hours. 
+
+If the federated webring A has a blacklisted website by the federated webring B, it will not appear in B.
 
 ### Checks validity of a request: *validity check*
 
