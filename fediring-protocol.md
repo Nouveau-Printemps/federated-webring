@@ -171,6 +171,7 @@ The server which receives the request has to validate it (using the *validity ch
 The *validity type* is `valid/federation-request`.
 
 If the request is not valid, the server has to reject it with a status 403.
+If the server has already sent a request, the server sends a status 409. 
 If the request is valid, the server sends a status 201.
 
 ### Response of a federation request
@@ -185,6 +186,7 @@ The *validity type* is `valid/federation-response`.
 The request is not valid if the server does not have a pending request or if the *validity check* failed.
 
 If the request is not valid, the server has to reject it with a status 403.
+If the server has already sent a response, the server sends a status 409.
 If the request is valid, the server sends a status 201.
 
 ### Break the federation
@@ -198,6 +200,7 @@ The server which receives the request has to validate it (using the *validity ch
 The *validity type* is `valid/federation-break`.
 
 If the request is not valid, the server has to reject it with a status 403.
+If the server has already sent the break, the server sends a status 409.
 If the request is valid, the server sends a status 202.
 
 ### Cancel a federation request
@@ -211,4 +214,5 @@ The server which receives the request has to validate it (using the *validity ch
 The *validity type* is `valid/federation-request-cancel`.
 
 If the request is not valid, the server has to reject it with a status 403.
+If there is no pending request, the server sends a status 400.
 If the request is valid, the server sends a status 200.
