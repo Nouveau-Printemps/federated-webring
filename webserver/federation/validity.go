@@ -29,9 +29,11 @@ func init() {
 	validTypeMap["federation/request"] = "valid/federation-request"
 	validTypeMap["federation/response"] = "valid/federation-response"
 	validTypeMap["federation/break"] = "valid/federation-break"
+	validTypeMap["federation/request-cancel"] = "valid/federation-request-cancel"
 	validTypeFuncMap["valid/federation-request"] = data.FederationRequestType
 	validTypeFuncMap["valid/federation-response"] = data.FederationResponseType
 	validTypeFuncMap["valid/federation-break"] = data.FederationBreakType
+	validTypeFuncMap["valid/federation-request-cancel"] = data.FederationRequestCancelType
 }
 
 func (d *Data) Verify() (bool, error) {

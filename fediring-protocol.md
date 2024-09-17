@@ -199,3 +199,16 @@ The *validity type* is `valid/federation-break`.
 
 If the request is not valid, the server has to reject it with a status 403.
 If the request is valid, the server sends a status 202.
+
+### Cancel a federation request
+
+To cancel a federation request, use the endpoint `/api/federation-inbox` and send with the `POST` method the data 
+*FederationData*.
+The type must be `federation/request-cancel`.
+The message is the reason of the cancel.
+
+The server which receives the request has to validate it (using the *validity check*).
+The *validity type* is `valid/federation-request-cancel`.
+
+If the request is not valid, the server has to reject it with a status 403.
+If the request is valid, the server sends a status 200.
